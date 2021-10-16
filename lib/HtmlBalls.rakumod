@@ -85,7 +85,7 @@ sub init-frame-stream(Supplier :$cmd, Supplier :output-balls($out-to-ws) --> Pro
 #| with any user-supplied configuration.  It also handles stop/restart commands and serves the
 #| site's minimal static HTML.
 (sub main-server() { start {
-    my ($port, $host)  = $*ENV<LRW_PORT LRW_HOST> Z//  <10000 localhost>;
+    my ($port, $host)  = %*ENV<LRW_PORT LRW_HOST> Z//  <10000 localhost>;
     my ($frame-stream-cmd, $output-balls) = (Supplier::Preserving.new, Supplier.new);
 
     my $output-data = $output-balls.Supply.map: {
