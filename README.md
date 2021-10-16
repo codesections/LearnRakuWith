@@ -55,7 +55,9 @@ balls in a web browser.  Here's how it works:
    [rakudo-pkg](https://github.com/nxadm/rakudo-pkg) installation method), and make sure you have a
    recent enough version of Zef to support the [Fez](https://github.com/tony-o/raku-fez) ecosystem
    (you probably do).
-1. run `zef install Learn::Raku::With` to install this module.
+1. run `zef --force-test install Learn::Raku::With` to install this module.  (You _shouldn't_ need
+   the `--force-test` but, at the time I'm writing this, a bit of deprecated code in Cro means that
+   you do.)
 2. Write a script that imports this module, uses the `learn-raku` function (described below) to
    place/move balls, and then sleeps.  Then run that script from your shell (e.g., with `raku script.raku`).
 3. View the balls in your browser at `localhost:10000` (or set a different address with the
