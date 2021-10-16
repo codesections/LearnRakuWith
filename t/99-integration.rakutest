@@ -1,0 +1,48 @@
+use v6.d;
+use Learn::Raku::With::HtmlBalls;
+use Cro::WebSocket::Client; 
+use Test;
+use JSON::Fast;
+
+my @example-dir-files = ($?FILE.IO.parent(2) ~'/examples').IO.dir; 
+my @readme-examples   = (gather for ($?FILE.IO.parent(2) ~ '/README.md').IO.lines {
+                             if '```raku' ^ff '```' { take $_ unless .starts-with: 'use ' | 'sleep' }
+                        }).join("\n").split('```');
+
+plan 1 + @example-dir-files + @readme-examples;
+  
+### Setup ###
+learn-raku :run;
+my ($chan, $client) = (Channel.new, Cro::WebSocket::Client.new: :uri('ws://localhost:10000/ws') );
+my $c = await $client.connect;
+$c.send: Q '{"width":1400,"height":400}';
+
+### Tests ###
+## Manual tests
+subtest 'correct results with defalut values' => {
+    plan 10;
+    react { whenever $c.messages { $++ < 10 ?? .body.then({ $chan.send: .result }) !! done }
+            whenever $chan { Ball.new(|from-json($_)[0]).&isa-ok(Ball)}}}
+
+## Auto tests from /examples 
+for @example-dir-files { 
+    my $example = gather { for slurp( $?FILE.IO.parent(2) ~'/examples/00-static.raku').lines {
+                            take $_ unless .starts-with: 'use ' | 'sleep' }}
+    $example.join("\n").EVAL;
+    subtest "Example '$_.basename()' returns Balls." => {
+        plan 10;
+        react { whenever $c.messages { $++ < 10 ?? .body.then({ $chan.send: .result }) !! done }
+                whenever $chan { Ball.new(|from-json($_)[0]).&isa-ok(Ball)}}}}
+
+
+## Auto tests from README.md
+for @readme-examples -> $example {
+    $example.join("\n").EVAL;
+    
+    subtest "Example $(++$) from the README returns Balls." => {
+        plan 10;
+        react { whenever $c.messages { $++ < 10 ?? .body.then({ $chan.send: .result }) !! done }
+                whenever $chan { Ball.new(|from-json($_)[0]).&isa-ok(Ball)}}}}
+
+learn-raku :!run;
+

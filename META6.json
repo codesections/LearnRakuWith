@@ -1,0 +1,30 @@
+{
+  "auth" : "github:codesections",
+  "authors" : [
+    "Daniel Sockwell"
+  ],
+  "build-depends" : [ ],
+    "depends" : [ "Cro::HTTP:ver<0.8.6>", "Cro::WebSocket:ver<0.8.6>", "Cro::WebApp:ver<0.8.6>" ],
+  "description" : "A way to learn Raku by rendering balls to an HTML page",
+  "license" : "Artistic-2.0",
+  "name" : "Learn::Raku::With",
+  "perl" : "6.d",
+  "provides" : {
+      "Learn::Raku::With::HtmlBalls": "lib/HtmlBalls.rakumod",
+      "X::LRW": "lib/X.rakumod"
+  },
+  "resources" : [ "main.crotmp" ],
+  "source-url" : "https://github.com/codesections/LearnRakuWith.git",
+  "support" : {
+    "email" : "daniel@codesections.com"
+  },
+  "tags" : [
+    "learning",
+    "concurrent",
+    "teaching",
+    "server",
+    "websocket"
+  ],
+  "test-depends" : [ "CORE:ver<6.d>:auth<perl>", "Cro::WebSocket:ver<0.8.6>", "JSON::Fast:ver<0.16>" ],
+  "version" : "0.0.1"
+}

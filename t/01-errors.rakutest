@@ -1,0 +1,10 @@
+use Test;
+use Learn::Raku::With::HtmlBalls;
+
+plan 5;
+
+throws-like { learn-raku },  X::LRW::Parameter::RequiresOne,        "learn-raku throws with 0 args";
+throws-like { learn-raku 1}, X::LRW::Parameter::Unexpected,         "learn-raku throws with unexpected args";
+throws-like { learn-raku :run(42)}, X::LRW::TypeCheck::Argument,    "learn-raku throws with invalid :run";
+throws-like { learn-raku :balls(42)}, X::LRW::TypeCheck::Argument,  "learn-raku throws with invalid :balls";
+throws-like { learn-raku :map-fn(42)}, X::LRW::TypeCheck::Argument, "learn-raku throws with invalid :map-fn";

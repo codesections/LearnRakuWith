@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name = "viewport" content = "width=device-width">
+    <title>Learn::Raku::With::CanvasBalls</title>
+    <style>
+      * { margin:0; padding:0; }
+      canvas { height:100%; position:fixed; width:100%; }
+    </style>
+  </head>
+  <body>
+    <canvas></canvas>
+    <script>
+      const ws = new WebSocket('ws://localhost:<.port>/ws');
+      let thisFrameBalls = [];
+      let nextFrameBalls = undefined;
+      const context = document.querySelector("canvas").getContext("2d");
+      ws.addEventListener('message', event => {
+          if (nextFrameBalls === undefined) {
+              nextFrameBalls = JSON.parse(event.data); }});
+      let w;
+      let h;
+      function loop() {
+          window.requestAnimationFrame(loop);
+          context.canvas.height = document.documentElement.clientHeight;
+          context.canvas.width  = document.documentElement.clientWidth;
+          if (context.canvas.width !== w || context.canvas.height !== h) {
+              w = context.canvas.width;
+              h = context.canvas.height;
+              ws.send(JSON.stringify({ width: w, height: h,}));
+          }
+
+          if (nextFrameBalls !== undefined) {
+              thisFrameBalls = nextFrameBalls;
+              nextFrameBalls = undefined;
+          }
+
+       
+
+          thisFrameBalls.forEach(ball => {
+              context.fillStyle = ball.color;
+              context.beginPath();
+              context.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
+              context.fill();
+          });
+          balls = [];
+
+          
+        
+      }
+      ws.onopen = loop;
+    </script>
+  </body>
+</html>
