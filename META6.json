@@ -1,10 +1,10 @@
 {
-  "auth" : "github:codesections",
+  "auth" : "zef:codesections",
   "authors" : [
     "Daniel Sockwell"
   ],
   "build-depends" : [ ],
-    "depends" : [ "Cro::HTTP:ver<0.8.6>", "Cro::WebSocket:ver<0.8.6>", "Cro::WebApp:ver<0.8.6>" ],
+  "depends" : [ "Cro::HTTP:ver<0.8.6>", "Cro::WebSocket:ver<0.8.6>", "Cro::WebApp:ver<0.8.6>" ],
   "description" : "A way to learn Raku by rendering balls to an HTML page",
   "license" : "Artistic-2.0",
   "name" : "Learn::Raku::With",

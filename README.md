@@ -51,8 +51,10 @@ make one.
 This repo contains the code for a Raku module that allows you to write simple Raku programs to display 
 balls in a web browser.  Here's how it works:
 
-0. Install [Raku] and [Zef] if you don't have them already.  (I recommend the
-   [rakudo-pkg](https://github.com/nxadm/rakudo-pkg) installation method.) 
+0. Install [Raku] and [Zef] if you don't have them already (I recommend the
+   [rakudo-pkg](https://github.com/nxadm/rakudo-pkg) installation method), and make sure you have a
+   recent enough version of Zef to support the [Fez](https://github.com/tony-o/raku-fez) ecosystem
+   (you probably do).
 1. run `zef install Learn::Raku::With` to install this module.
 2. Write a script that imports this module, uses the `learn-raku` function (described below) to
    place/move balls, and then sleeps.  Then run that script from your shell (e.g., with `raku script.raku`).
