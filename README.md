@@ -127,7 +127,7 @@ If you want a Ball that moves, a simple option would be
 
 ```raku
 use Learn::Raku::With::HtmlBalls;
-learn-raku :map-fn(-> $ball { $ball.x += .05; $ball }), :run
+learn-raku :map-fn(-> $ball { $ball.x += .05; $ball }), :run;
 # Remember that you need to return the new ball ^^^^, not just modify one
 sleep;
 ```
